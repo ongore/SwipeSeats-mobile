@@ -1,6 +1,3 @@
-// src/services/api.js
-// API service for communicating with backend
-
 import axios from 'axios';
 import { API_BASE_URL } from '@env';
 
@@ -14,10 +11,8 @@ class ApiService {
       }
     });
 
-    // Request interceptor
     this.client.interceptors.request.use(
       (config) => {
-        // Add auth token if available
         if (this.authToken) {
           config.headers.Authorization = `Bearer ${this.authToken}`;
         }
@@ -28,18 +23,14 @@ class ApiService {
       }
     );
 
-    // Response interceptor
     this.client.interceptors.response.use(
       (response) => response,
       (error) => {
         if (error.response) {
-          // Handle specific error codes
           if (error.response.status === 401) {
-            // Unauthorized - maybe trigger logout
             console.log('Unauthorized - token may be expired');
           }
         } else if (error.request) {
-          // Network error
           console.error('Network error:', error.message);
         }
         return Promise.reject(error);
@@ -53,7 +44,6 @@ class ApiService {
     this.authToken = token;
   }
 
-  // Generic methods
   async get(url, params = {}) {
     return this.client.get(url, { params });
   }
@@ -70,7 +60,6 @@ class ApiService {
     return this.client.delete(url);
   }
 
-  // Events
   async searchEvents(query, location, filters = {}) {
     return this.get('/events/search', {
       q: query,
@@ -91,7 +80,6 @@ class ApiService {
     return this.get(`/events/${eventId}/listings`, filters);
   }
 
-  // Swipes
   async recordSwipe(eventId, listingId, direction, sessionId, position) {
     return this.post('/swipes', {
       eventId,
@@ -110,7 +98,6 @@ class ApiService {
     return this.get('/swipes/stats');
   }
 
-  // Checkout
   async initiateCheckout(listingId, eventId, sessionId) {
     return this.post('/checkout/initiate', {
       listingId,
@@ -130,7 +117,6 @@ class ApiService {
     return this.get('/checkout/history');
   }
 
-  // User
   async updateProfile(data) {
     return this.put('/users/profile', data);
   }

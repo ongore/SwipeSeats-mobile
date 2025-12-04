@@ -1,6 +1,3 @@
-// App.js
-// Main React Native app entry point
-
 import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -14,7 +11,6 @@ import SplashScreen from './src/screens/SplashScreen';
 import WelcomeScreen from './src/screens/auth/WelcomeScreen';
 import LoginScreen from './src/screens/auth/LoginScreen';
 import RegisterScreen from './src/screens/auth/RegisterScreen';
-import LocationSetupScreen from './src/screens/auth/LocationSetupScreen';
 import HomeScreen from './src/screens/home/HomeScreen';
 import EventDetailsScreen from './src/screens/events/EventDetailsScreen';
 import SwipeScreen from './src/screens/swipe/SwipeScreen';
@@ -24,7 +20,7 @@ import SuccessScreen from './src/screens/checkout/SuccessScreen';
 import ProfileScreen from './src/screens/profile/ProfileScreen';
 import SettingsScreen from './src/screens/profile/SettingsScreen';
 
-// Import services & context
+// Import context
 import { AuthProvider, useAuth } from './src/context/AuthContext';
 import { initializeApp } from './src/services/firebase';
 
@@ -68,7 +64,6 @@ function AuthStack() {
       <Stack.Screen name="Welcome" component={WelcomeScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
-      <Stack.Screen name="LocationSetup" component={LocationSetupScreen} />
     </Stack.Navigator>
   );
 }
@@ -85,18 +80,12 @@ function AppStack() {
       <Stack.Screen 
         name="EventDetails" 
         component={EventDetailsScreen}
-        options={{ 
-          title: 'Event Details',
-          headerBackTitle: 'Back'
-        }}
+        options={{ title: 'Event Details' }}
       />
       <Stack.Screen 
         name="Swipe" 
         component={SwipeScreen}
-        options={{ 
-          title: 'Find Your Seat',
-          headerBackTitle: 'Back'
-        }}
+        options={{ title: 'Find Your Seat' }}
       />
       <Stack.Screen 
         name="ConfirmCheckout" 
@@ -156,7 +145,6 @@ export default function App() {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    // Simulate app initialization
     setTimeout(() => {
       setIsReady(true);
     }, 1500);
